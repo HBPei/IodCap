@@ -4,7 +4,8 @@
 -Timeline:
   * 9/30/2024: Basic model for image classification
   * Issues Encountered:
-      -Slow processing locallt (> 40 mins 10 epochs), cannot install neccessary dependencies on EC2 AWS Linux
       - Overfitting
+      - Slow processing locallt (> 40 mins 10 epochs), cannot install neccessary dependencies on EC2 AWS Linux
+        
 
 Dataset: https://www.kaggle.com/datasets/alistairking/recyclable-and-household-waste-classification
