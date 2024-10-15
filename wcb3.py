@@ -150,6 +150,15 @@ def detect_objects():
     model = load_model_function(pklFilePath)
 
     cap = cv2.VideoCapture(0)
+    if not cap.isOpened():
+        print("Error: Could not open camera.")
+        return
+
+    while True:
+        ret, frame = cap.read()
+        if not ret:
+            print("Error: Failed to capture image from webcam.")
+            break
 
     # Create a placeholder for the video feed in Streamlit
     frame_placeholder = st.empty()
