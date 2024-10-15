@@ -1,6 +1,6 @@
 [theme]
 primaryColor = '#FF8C02' # Bright Orange
 backgroundColor = '#00325B' # Dark Blue
-secondaryBackgroundColor = '#55B2FF' # Lighter Blue
+secondaryBackgroundColor = '#013220' # Dark Green
 textColor = '#f8f8ba'
 font = "serif"
