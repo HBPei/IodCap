@@ -9,10 +9,7 @@ import pickle
 from tensorflow.keras.applications.efficientnet import preprocess_input
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 import zipfile
-import io
 import cv2
-from streamlit_webrtc import webrtc_streamer
-import av
 import base64
 
 class_labels = [
