@@ -120,13 +120,8 @@ def set_background_image_from_file(image_file_path):
 # Set your local image path
 set_background_image_from_file(os.path.join(os.getcwd(),'BG1.jpg'))
 
-
-
-
 # hide the CSS code from the screen as they are embedded in markdown text. Also, allow streamlit to unsafely process as HTML
 st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
-
-
 
 #Function to load and return the model
 
@@ -153,9 +148,8 @@ model = load_model_function(pklFilePath)
 # Define the image preprocessing function for EfficientNetB0
 def detect_objects():
     model = load_model_function(pklFilePath)
-    
-    # Open the webcam
-    cap = cv2.VideoCapture(0, cv2.CAP_DSHOW) 
+
+    cap = cv2.VideoCapture(0)
 
     # Create a placeholder for the video feed in Streamlit
     frame_placeholder = st.empty()
@@ -164,6 +158,7 @@ def detect_objects():
         # Capture frame-by-frame
         ret, frame = cap.read()
         if not ret:
+            st.error("Failed to capture image from webcam.")
             break
 
         # Preprocess the frame for prediction
