@@ -154,9 +154,6 @@ def detect_objects():
         print("Error: Could not open camera.")
         return
      
-    # Create a placeholder for the video feed in Streamlit
-    frame_placeholder = st.empty()
-
     while True:
         # Capture frame-by-frame
         ret, frame = cap.read()
@@ -177,16 +174,14 @@ def detect_objects():
         # Draw the prediction on the frame
         cv2.putText(frame, f'Predicted: {original_label}', (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
 
-        # Display the resulting frame in Streamlit
-        frame_placeholder.image(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB), channels="RGB")
+        # Display the resulting frame
+        cv2.imshow('Real-Time Object Detection', frame)
 
-        # Break the loop if 'q' is pressed (not applicable in Streamlit)
-        if st.button("Stop"):
+        # Break the loop if 'q' is pressed
+        if (cv2.waitKey(1) & 0xFF == ord('q')):
             break
-
-    # Release the capture when done
+    # Release the capture 
     cap.release()
-
 
 # Function to preprocess images using ImageDataGenerator
 def preprocess_images(images):
