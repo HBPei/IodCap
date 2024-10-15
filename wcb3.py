@@ -151,15 +151,14 @@ dataGen = ImageDataGenerator(
 model = load_model_function(pklFilePath)
 
 # Define the image preprocessing function for EfficientNetB0
-def preprocess_frame(frame):
-    resized_frame = cv2.resize(frame, (224, 224))  # Resize to match model input shape
-    return np.expand_dims(resized_frame, axis=0)  # Add batch dimension
-
 def detect_objects():
     model = load_model_function(pklFilePath)
     
     # Open the webcam
-    cap = cv2.VideoCapture(0,cv2.CAP_DSHOW) 
+    cap = cv2.VideoCapture(0, cv2.CAP_DSHOW) 
+
+    # Create a placeholder for the video feed in Streamlit
+    frame_placeholder = st.empty()
 
     while True:
         # Capture frame-by-frame
@@ -177,17 +176,18 @@ def detect_objects():
         # Convert to original label using the mapping
         original_label = class_mapping.get(predicted_class_index, "Unknown Class")
 
+        # Draw the prediction on the frame
         cv2.putText(frame, f'Predicted: {original_label}', (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
 
-        # Display the resulting frame
-        cv2.imshow('Real-Time Object Detection', frame)
+        # Display the resulting frame in Streamlit
+        frame_placeholder.image(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB), channels="RGB")
 
-        # Break the loop if 'q' is pressed
-        if (cv2.waitKey(1) & 0xFF == ord('q')):
+        # Break the loop if 'q' is pressed (not applicable in Streamlit)
+        if st.button("Stop"):
             break
-    # Release the capture and close all OpenCV windows
+
+    # Release the capture when done
     cap.release()
-    cv2.destroyAllWindows()
 
 
 # Function to preprocess images using ImageDataGenerator
