@@ -236,7 +236,7 @@ with col1:
 
 
     # Option to choose streaming method
-    data_input_option = st.radio("Choose Image source:", ("Image files", "Zip folder", "Livestream through your Device"))
+    data_input_option = st.radio("Choose Image source:", ("Image files", "Zip folder", "Livestream through your device"))
 
     if data_input_option == "Image files":
 
@@ -309,7 +309,7 @@ with col1:
     elif data_input_option == "Zip folder":
 
         # Optionally, allow users to upload a ZIP folder (as before)
-        zip_file = st.file_uploader("Or upload a ZIP folder of images", 
+        zip_file = st.file_uploader("Upload a ZIP folder of images", 
                                     type="zip",
                                     key=f'zip_uploader_{st.session_state.zip_uploader_key}')
 
@@ -380,7 +380,7 @@ with col1:
             except Exception as e:
                 st.error(f"Error processing ZIP file: {str(e)}")
 
-    elif data_input_option == "Livestream through your Device": 
+    elif data_input_option == "Livestream through your device": 
         if st.button("Start OpenCV Streaming"):
             detect_objects() 
 
