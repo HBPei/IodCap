@@ -237,7 +237,9 @@ with col1:
 
 
     # Option to choose streaming method
-    data_input_option = st.radio("Choose Image source:", ("Image files", "Zip folder", "Livestream through your device"))
+    ## uncoment the below if you plan to use device's camera
+    #data_input_option = st.radio("Choose Image source:", ("Image files", "Zip folder", "Livestream through your device"))  
+    data_input_option = st.radio("Choose Image source:", ("Image files", "Zip folder"))
 
     if data_input_option == "Image files":
 
