@@ -11,6 +11,7 @@ from tensorflow.keras.preprocessing.image import ImageDataGenerator
 import zipfile
 import cv2
 import base64
+import warnings
 
 class_labels = [
  'aerosol_cans',
@@ -53,7 +54,7 @@ st.set_page_config(
 )
 
 # hide deprication warnings which directly don't affect the working of the application
-import warnings
+
 warnings.filterwarnings("ignore")
 
 
@@ -220,8 +221,8 @@ if 'image_uploader_key' not in st.session_state:
     st.session_state.image_uploader_key = 0
 if 'zip_uploader_key' not in st.session_state:
     st.session_state.zip_uploader_key = 0
-if 'camera_uploader_key' not in st.session_state:
-    st.session_state.camera_uploader_key = 0
+#if 'camera_uploader_key' not in st.session_state:
+#    st.session_state.camera_uploader_key = 0
 
 # Create columns for layout
 col1, col2 = st.columns([7, 3])  # Adjust ratios as necessary
@@ -379,10 +380,10 @@ with col1:
             
             except Exception as e:
                 st.error(f"Error processing ZIP file: {str(e)}")
-
-    elif data_input_option == "Livestream through your device": 
-        if st.button("Start OpenCV Streaming"):
-            detect_objects() 
+#uncomment if you plan to deploy locally and your device's camera
+#    elif data_input_option == "Livestream through your device": 
+#        if st.button("Start OpenCV Streaming"):
+#            detect_objects() 
 
 with col2:
     # Empty column for spacing (optional)
