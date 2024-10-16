@@ -235,6 +235,7 @@ with col1:
              
     st.header("""Because Even Trash Deserves a Second Chance!""")
 
+    st.write("Classify your waste objects with this app.")
 
     # Option to choose streaming method
     ## uncoment the below if you plan to use device's camera
