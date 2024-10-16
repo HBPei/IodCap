@@ -13,37 +13,13 @@ import cv2
 import base64
 import warnings
 
-class_labels = [
- 'aerosol_cans',
- 'aluminum_soda_cans',
- 'cardboard_packaging',
- 'clothing',
- 'disposable_plastic_cutlery',
- 'eggshells',
- 'food_waste',
- 'glass_beverage_bottles',
- 'glass_cosmetic_containers',
- 'glass_food_jars',
- 'magazines',
- 'metal_food_cans',
- 'newspaper',
- 'paper',
- 'paper_cups',
- 'plastic_containers',
- 'plastic_cup_lids',
- 'plastic_detergent_bottles',
- 'plastic_shopping_bags',
- 'plastic_soda_bottles',
- 'plastic_straws',
- 'plastic_trash_bags',
- 'plastic_water_bottles',
- 'shoes',
- 'styrofoam_cups',
- 'styrofoam_food_containers'
-]
 
+          
 # Create a mapping from class index to label, replacing underscores with spaces
-class_mapping = {i: label.replace('_', ' ') for i, label in enumerate(class_labels)}
+with open('class_labels.txt', 'r') as labels:
+    # Create a dictionary mapping index to label
+    class_mapping = {i: label.strip() for i, label in enumerate(labels)}
+
 
 # set some pre-defined configurations for the page, such as the page title, logo-icon, page loading state (whether the page is loaded automatically or you need to perform some action for loading)
 st.set_page_config(
