@@ -167,7 +167,7 @@ if 'zip_uploader_key' not in st.session_state:
 probability_threshold = 0.6  # Adjust this value as needed
 
 # Create columns for layout
-col1, col2 = st.columns([7, 3])  # Adjust ratios as necessary
+col1, col2 = st.columns([6, 4])  # Adjust ratios as necessary
 
 with col1: 
 
