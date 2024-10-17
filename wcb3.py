@@ -14,11 +14,15 @@ import base64
 import warnings
 
 
-          
-# Create a mapping from class index to label, replacing underscores with spaces
+        
 with open('class_labels.txt', 'r') as labels:
-    # Create a dictionary mapping index to label
-    class_mapping = {i: label.strip() for i, label in enumerate(labels)}
+    # Create a dictionary mapping class to risk level
+    class_mapping = {}
+    
+    for line in labels:
+        # Split the line into class and risk level
+        class_label, risk_level = line.strip().split(':', 1)
+        class_mapping[class_label.strip()] = risk_level.strip()
 
 
 # set some pre-defined configurations for the page, such as the page title, logo-icon, page loading state (whether the page is loaded automatically or you need to perform some action for loading)
@@ -51,7 +55,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 p {
-    font-size: 20px; /* Increase paragraph font size */
+    font-size: 15px; /* Increase paragraph font size */
     line-height: 1.5; /* Increase line height for paragraphs */
 }
 
@@ -62,7 +66,7 @@ p {
 
 /* Change color of st.success box */
 .stSuccess {
-    background-color: #013220 !important; /* Green background */
+    background-color: #14092f !important; /* blue background */
     color: white !important; /* White text */
     border-color: #28a745 !important; /* Green border */
 }
@@ -122,44 +126,6 @@ dataGen = ImageDataGenerator(
 #Storing the model in a variable 
 model = load_model_function(pklFilePath)
 
-# Define the image preprocessing function for EfficientNetB0
-def detect_objects():
-    model = load_model_function(pklFilePath)
-
-    cap = cv2.VideoCapture(0,cv2.CAP_DSHOW)
-    if not cap.isOpened():
-        print("Error: Could not open camera.")
-        return
-     
-    while True:
-        # Capture frame-by-frame
-        ret, frame = cap.read()
-        if not ret:
-            st.error("Failed to capture image from webcam.")
-            break
-
-        # Preprocess the frame for prediction
-        processed_frame = preprocess_frame(frame)
-
-        # Make predictions using the model
-        predictions = model.predict(processed_frame)
-        predicted_class_index = np.argmax(predictions, axis=1)[0]
-
-        # Convert to original label using the mapping
-        original_label = class_mapping.get(predicted_class_index, "Unknown Class")
-
-        # Draw the prediction on the frame
-        cv2.putText(frame, f'Predicted: {original_label}', (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0), 2)
-
-        # Display the resulting frame
-        cv2.imshow('Real-Time Object Detection', frame)
-
-        # Break the loop if 'q' is pressed
-        if (cv2.waitKey(1) & 0xFF == ord('q')):
-            break
-    # Release the capture 
-    cap.release()
-
 # Function to preprocess images using ImageDataGenerator
 def preprocess_images(images):
     processed_images = []
@@ -197,8 +163,8 @@ if 'image_uploader_key' not in st.session_state:
     st.session_state.image_uploader_key = 0
 if 'zip_uploader_key' not in st.session_state:
     st.session_state.zip_uploader_key = 0
-#if 'camera_uploader_key' not in st.session_state:
-#    st.session_state.camera_uploader_key = 0
+
+probability_threshold = 0.6  # Adjust this value as needed
 
 # Create columns for layout
 col1, col2 = st.columns([7, 3])  # Adjust ratios as necessary
@@ -207,9 +173,9 @@ with col1:
 
     st.markdown('<div class="container">', unsafe_allow_html=True)  # Start of container
 
-    st.header("""AI Sorting""")
+    st.header("""AI Waste Sorting""")
              
-    st.header("""Because Even Trash Deserves a Second Chance!""")
+    st.header("""Because Even Trash Deserves a Second Chance""")
 
     st.write("Classify your waste objects with this app.")
 
@@ -250,25 +216,35 @@ with col1:
                     with st.spinner("Let's see what you have got..."):
                         predictions = model.predict(processed_images)
                         st.empty()
-                        # Clear original images display after prediction button is clicked
-                        #st.empty()  # Clear previous output
+
+                        
                         # Display predictions beneath each image
                         for i, (image, prediction) in enumerate(zip(original_images, predictions)):
                             predicted_class_index = np.argmax(prediction)  # Get index of highest probability
+                            predicted_probability = prediction[predicted_class_index]  # Get the highest probability
                             
-                            # Convert to original label using the mapping
-                            original_label = class_mapping.get(predicted_class_index, "Unknown Class")
-                            
+                            # Convert to original label and risk level using the mapping
+                            if predicted_class_index < len(class_mapping):
+                                original_label = list(class_mapping.keys())[predicted_class_index]
+                                risk_level = class_mapping[original_label]  # Get the corresponding risk level
+                            else:
+                                original_label = "Unknown Class"
+                                risk_level = "Unknown Risk Level"
+
                             # Resize image for display (smaller size)
                             small_image = image.resize((150, 150))  # Resize to 150x150 for display purposes
                             
-                            # Display resized image and prediction below it
+                            # Display resized image
                             st.image(small_image, use_column_width=False)
 
-                            st.success(f'I believe this is a {original_label}')
+                            # Check if the predicted probability meets the threshold
+                            if predicted_probability >= probability_threshold:
+                                st.success(f'I believe this is a {original_label}. ({risk_level}) confidence {predicted_probability:.2f}.')
+                            else:
+                                st.warning(f"I think I am wrong, but my best guess is: {original_label} ({risk_level}).")
                             
-                            # Increment key to reset uploader
-                            st.session_state.image_uploader_key += 1
+                        # Increment key to reset uploader
+                        st.session_state.image_uploader_key += 1
             
                     # Clear button to reset uploaded files
                     if st.button("Clear Uploaded Files"):
@@ -281,9 +257,6 @@ with col1:
                         # Show success message after clearing
                         st.success("Uploaded files cleared!")  
 
-                        #reset any other states if needed
-                        #if 'zip_uploader_key' in st.session_state:
-                        #    st.session_state.zip_uploader_key += 1 
 
     # Handle ZIP folder upload
     elif data_input_option == "Zip folder":
@@ -326,19 +299,28 @@ with col1:
                             zip_predictions = model.predict(zip_processed_images)
                             st.empty()
                             for i, (zip_image, zip_prediction) in enumerate(zip(zip_processed_images, zip_predictions)):
-
                                 zip_predicted_class_index = np.argmax(zip_prediction)  # Get index of highest probability
+                                zip_predicted_probability = zip_prediction[zip_predicted_class_index]  # Get the highest probability
                                 
-                                zip_original_label = class_mapping.get(zip_predicted_class_index, "Unknown Class")
+                                # Convert to original label and risk level using the mapping
+                                if zip_predicted_class_index < len(class_mapping):
+                                    zip_original_label = list(class_mapping.keys())[zip_predicted_class_index]
+                                    risk_level = class_mapping[zip_original_label]  # Get the corresponding risk level
+                                else:
+                                    zip_original_label = "Unknown Class"
+                                    risk_level = "Unknown Risk Level"
 
-                                # Resize image for display (smaller size)
                                 zip_small_image = Image.fromarray((zip_image).astype(np.uint8))  # Convert back to PIL Image
 
                                 zip_small_image = zip_small_image.resize((150, 150))  # Resize to 150x150 for display purposes                    
                                 # Display resized image and prediction below it
                                 st.image(zip_small_image, use_column_width=False)
 
-                                st.success(f'I believe this is a {zip_original_label}')
+                                # Check if the predicted probability meets the threshold
+                                if zip_predicted_probability >= probability_threshold:
+                                    st.success(f'I believe this is a {zip_original_label}. ({risk_level}) confidence {zip_predicted_probability:.2f}.')
+                                else:
+                                    st.warning(f"I think I am wrong, but my best guess is: {zip_original_label} ({risk_level}).")
 
                                 # Reset uploader by changing its key
                                 st.session_state.zip_uploader_key += 1  # Increment key to reset uploader
@@ -359,12 +341,9 @@ with col1:
             
             except Exception as e:
                 st.error(f"Error processing ZIP file: {str(e)}")
-#uncomment if you plan to deploy locally and your device's camera
-#    elif data_input_option == "Livestream through your device": 
-#        if st.button("Start OpenCV Streaming"):
-#            detect_objects() 
+
+    
 
 with col2:
     # Empty column for spacing (optional)
-    st.empty()  # You can add any other content here if needed
-
+    st.empty()  # For adding any other content here if needed
