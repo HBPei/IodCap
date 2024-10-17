@@ -1,26 +1,26 @@
-Aerosol Cans
-Aluminum Soda Cans
-Cardboard Packaging
-Clothing
-Disposable Plastic Cutlery
-Eggshells
-Food Waste
-Glass Beverage Bottles
-Glass Cosmetic Containers
-Glass Food Jars
-Magazines
-Metal Food Cans
-Newspaper
-Paper
-Paper Cups
-Plastic Containers
-Plastic Cup Lids
-Plastic Detergent Bottles
-Plastic Shopping Bags
-Plastic Soda Bottles
-Plastic Straws
-Plastic Trash Bags
-Plastic Water Bottles
-Shoes
-Styrofoam Cups
-Styrofoam Food Containers
+Aerosol Cans: High risk due to pressurized contents and potential flammability.
+Aluminum Soda Can: Medium risk due to potential residue from beverages.
+Cardboard Packaging: Low risk of contamination as it is generally clean and recyclable.
+Clothing: High risk if contaminated with hazardous substances (e.g., chemicals, dyes). If in good condition, reuse or donate!
+Disposable Plastic Cutlery: High risk due to potential contamination from food and inability to recycle effectively.
+Eggshell: Low risk; biodegradable and does not contain harmful substances.
+Food Waste: High risk due to decomposition and attraction of pests.
+Glass Beverage Bottle: Medium risk; may contain residues from drinks.
+Glass Cosmetic Container: Medium risk; potential for residual chemicals.
+Glass Food Jar: Medium risk; may have food residues.
+Magazine: Low risk; typically clean paper material.
+Metal Food Can: Medium risk; potential for food contamination.
+Newspaper: Low risk; also clean paper material.
+Paper: Low risk; clean paper can be recycled easily.
+Paper Cup: Medium risk due to potential food contamination.
+Plastic Container: Medium risk; may contain residues from previous contents.
+Plastic Cup Lid: Medium risk; may contain residues or contaminants.
+Plastic Detergent Bottle: Medium risk due to chemical residues.
+Plastic Shopping Bag: High risk; often contaminated with food and difficult to recycle.
+Plastic Soda Bottle: Medium risk as it may contain residual sugars or acids.
+Plastic Straw: High risk; often contaminated and contributes to environmental pollution.
+Plastic Trash Bag: High risk as it may contain mixed waste, including hazardous materials.
+Plastic Water Bottle: Medium risk as it may contain residual liquids or contaminants.
+Shoes: High risk, contaminated with hazardous substances or chemicals.  If in good condition, reuse or donate!
+Styrofoam Cup: High risk due to difficulty in recycling and potential contamination from food or drink.
+Styrofoam Food Container: High risk due to difficulty in recycling and potential contamination from food.
