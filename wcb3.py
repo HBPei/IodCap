@@ -328,27 +328,25 @@ with col1:
                                         st.session_state.zip_uploader_key += 1  # Increment key to reset uploader
 
 
-                        # Clear button to reset uploaded files
-                        if st.button("Clear Uploaded Files"):
-                            # Clear the list of uploaded files
-                            st.session_state.uploaded_files.clear()  
+                # Clear button to reset uploaded files
+                if st.button("Clear Uploaded Files"):
+                    # Clear the list of uploaded files
+                    st.session_state.uploaded_files.clear()  
 
-                            # Increment key to reset uploader
-                            st.session_state.zip_uploader_key += 1 
-                            
-                            # Show success message after clearing
-                            st.success("Uploaded files cleared!")  
-            
-                            # Clean up extracted files after processing if needed
-                            for filename in os.listdir("temp_folder"):
-                                os.remove(os.path.join("temp_folder", filename))
+                    # Increment key to reset uploader
+                    st.session_state.zip_uploader_key += 1 
+                    
+                    # Show success message after clearing
+                    st.success("Uploaded files cleared!")  
+    
+                    # Clean up extracted files after processing if needed
+                    for filename in os.listdir("temp_folder"):
+                        os.remove(os.path.join("temp_folder", filename))
 
-                            st.session_state.zip_uploader_key += 1 
+                    st.session_state.zip_uploader_key += 1 
             
             except Exception as e:
                 st.error(f"Error processing ZIP file: {str(e)}")
-
-    
 
 with col2:
     # Empty column for spacing (optional)
