@@ -291,40 +291,41 @@ with col1:
                     if invalid_zip_files:
                         st.error(f"The following files are not valid images and will be ignored: {', '.join(invalid_zip_files)}")
                         st.warning("Prediction will not proceed due to the presence of non-image files.")
-
-                    # Preprocess the extracted images using the defined function
-                    if st.button("Predict from ZIP"):
-                        zip_processed_images = preprocess_images(extracted_images)
+                        st.session_state.zip_uploader_key += 1 
+                    else:    
+                            # Preprocess the extracted images using the defined function
+                            if st.button("Predict from ZIP"):
+                                zip_processed_images = preprocess_images(extracted_images)
+                
+                                with st.spinner("Gosh, wonder how many images have you in that zip folder..."):
+                                    zip_predictions = model.predict(zip_processed_images)
+                                    st.empty()
+                                    for i, (zip_image, zip_prediction) in enumerate(zip(zip_processed_images, zip_predictions)):
+                                        zip_predicted_class_index = np.argmax(zip_prediction)  # Get index of highest probability
+                                        zip_predicted_probability = zip_prediction[zip_predicted_class_index]  # Get the highest probability
+                                        
+                                        # Convert to original label and risk level using the mapping
+                                        if zip_predicted_class_index < len(class_mapping):
+                                            zip_original_label = list(class_mapping.keys())[zip_predicted_class_index]
+                                            risk_level = class_mapping[zip_original_label]  # Get the corresponding risk level
+                                        else:
+                                            zip_original_label = "Unknown Class"
+                                            risk_level = "Unknown Risk Level"
         
-                        with st.spinner("Gosh, wonder how many images have you in that zip folder..."):
-                            zip_predictions = model.predict(zip_processed_images)
-                            st.empty()
-                            for i, (zip_image, zip_prediction) in enumerate(zip(zip_processed_images, zip_predictions)):
-                                zip_predicted_class_index = np.argmax(zip_prediction)  # Get index of highest probability
-                                zip_predicted_probability = zip_prediction[zip_predicted_class_index]  # Get the highest probability
-                                
-                                # Convert to original label and risk level using the mapping
-                                if zip_predicted_class_index < len(class_mapping):
-                                    zip_original_label = list(class_mapping.keys())[zip_predicted_class_index]
-                                    risk_level = class_mapping[zip_original_label]  # Get the corresponding risk level
-                                else:
-                                    zip_original_label = "Unknown Class"
-                                    risk_level = "Unknown Risk Level"
-
-                                zip_small_image = Image.fromarray((zip_image).astype(np.uint8))  # Convert back to PIL Image
-
-                                zip_small_image = zip_small_image.resize((150, 150))  # Resize to 150x150 for display purposes                    
-                                # Display resized image and prediction below it
-                                st.image(zip_small_image, use_column_width=False)
-
-                                # Check if the predicted probability meets the threshold
-                                if zip_predicted_probability >= probability_threshold:
-                                    st.success(f'I believe this is a {zip_original_label}. ({risk_level}) confidence {zip_predicted_probability:.2f}.')
-                                else:
-                                    st.warning(f"I think I am wrong, but my best guess is: {zip_original_label} ({risk_level}).")
-
-                                # Reset uploader by changing its key
-                                st.session_state.zip_uploader_key += 1  # Increment key to reset uploader
+                                        zip_small_image = Image.fromarray((zip_image).astype(np.uint8))  # Convert back to PIL Image
+        
+                                        zip_small_image = zip_small_image.resize((150, 150))  # Resize to 150x150 for display purposes                    
+                                        # Display resized image and prediction below it
+                                        st.image(zip_small_image, use_column_width=False)
+        
+                                        # Check if the predicted probability meets the threshold
+                                        if zip_predicted_probability >= probability_threshold:
+                                            st.success(f'I believe this is a {zip_original_label}. ({risk_level}) confidence {zip_predicted_probability:.2f}.')
+                                        else:
+                                            st.warning(f"I think I am wrong, but my best guess is: {zip_original_label} ({risk_level}).")
+        
+                                        # Reset uploader by changing its key
+                                        st.session_state.zip_uploader_key += 1  # Increment key to reset uploader
 
 
                         # Clear button to reset uploaded files
