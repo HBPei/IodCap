@@ -253,6 +253,8 @@ with col1:
 
                         # Increment key to reset uploader
                         st.session_state.image_uploader_key += 1
+
+                        st.session_state.zip_uploader_key += 1
                         
                         # Show success message after clearing
                         st.success("Uploaded files cleared!")  
