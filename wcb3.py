@@ -208,7 +208,7 @@ with col1:
                         original_images.append(image)  # Append to the list
                 except Exception as e:
                     st.error(f"Error loading image: {str(e)}")
-                    st.session_state.uploaded_files.clear()  
+
                 
         
                 # Preprocess the images using the defined function
@@ -343,7 +343,6 @@ with col1:
             except Exception as e:
                 st.error(f"Error processing ZIP file: {str(e)}")
                     
-                st.session_state.uploaded_files.clear()  
     
 
 with col2:
