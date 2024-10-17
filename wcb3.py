@@ -167,7 +167,7 @@ if 'zip_uploader_key' not in st.session_state:
 probability_threshold = 0.6  # Adjust this value as needed
 
 # Create columns for layout
-col1, col2 = st.columns([6, 4])  # Adjust ratios as necessary
+col1, col2 = st.columns([7, 3])  # Adjust ratios as necessary
 
 with col1: 
 
@@ -208,7 +208,6 @@ with col1:
                         original_images.append(image)  # Append to the list
                 except Exception as e:
                     st.error(f"Error loading image: {str(e)}")
-
                 
         
                 # Preprocess the images using the defined function
@@ -240,7 +239,7 @@ with col1:
 
                             # Check if the predicted probability meets the threshold
                             if predicted_probability >= probability_threshold:
-                                st.success(f'I believe this is a {original_label}. ({risk_level})')
+                                st.success(f'I believe this is a {original_label}. ({risk_level}) confidence {predicted_probability:.2f}.')
                             else:
                                 st.warning(f"I think I am wrong, but my best guess is: {original_label} ({risk_level}).")
                             
@@ -266,7 +265,7 @@ with col1:
         zip_file = st.file_uploader("Upload a ZIP folder of images", 
                                     type="zip",
                                     key=f'zip_uploader_{st.session_state.zip_uploader_key}')
-
+           
         if zip_file:
             try:
                 with zipfile.ZipFile(zip_file, 'r') as zip_ref:
@@ -291,6 +290,7 @@ with col1:
                     # Check if there were any invalid files in the ZIP
                     if invalid_zip_files:
                         st.error(f"The following files are not valid images and will be ignored: {', '.join(invalid_zip_files)}")
+                        st.warning("Prediction will not proceed due to the presence of non-image files.")
 
                     # Preprocess the extracted images using the defined function
                     if st.button("Predict from ZIP"):
@@ -319,13 +319,15 @@ with col1:
 
                                 # Check if the predicted probability meets the threshold
                                 if zip_predicted_probability >= probability_threshold:
-                                    st.success(f'I believe this is a {zip_original_label}. ({risk_level})')
+                                    st.success(f'I believe this is a {zip_original_label}. ({risk_level}) confidence {zip_predicted_probability:.2f}.')
                                 else:
                                     st.warning(f"I think I am wrong, but my best guess is: {zip_original_label} ({risk_level}).")
 
                                 # Reset uploader by changing its key
                                 st.session_state.zip_uploader_key += 1  # Increment key to reset uploader
-                                    # Clear button to reset uploaded files
+
+
+                        # Clear button to reset uploaded files
                         if st.button("Clear Uploaded Files"):
                             # Clear the list of uploaded files
                             st.session_state.uploaded_files.clear()  
@@ -339,10 +341,12 @@ with col1:
                             # Clean up extracted files after processing if needed
                             for filename in os.listdir("temp_folder"):
                                 os.remove(os.path.join("temp_folder", filename))
+
+                            st.session_state.zip_uploader_key += 1 
             
             except Exception as e:
                 st.error(f"Error processing ZIP file: {str(e)}")
-                    
+
     
 
 with col2:
