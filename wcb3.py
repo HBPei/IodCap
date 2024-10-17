@@ -239,7 +239,7 @@ with col1:
 
                             # Check if the predicted probability meets the threshold
                             if predicted_probability >= probability_threshold:
-                                st.success(f'I believe this is a {original_label}. ({risk_level}) confidence {predicted_probability:.2f}.')
+                                st.success(f'I believe this is a {original_label}. ({risk_level})')
                             else:
                                 st.warning(f"I think I am wrong, but my best guess is: {original_label} ({risk_level}).")
                             
@@ -318,7 +318,7 @@ with col1:
 
                                 # Check if the predicted probability meets the threshold
                                 if zip_predicted_probability >= probability_threshold:
-                                    st.success(f'I believe this is a {zip_original_label}. ({risk_level}) confidence {zip_predicted_probability:.2f}.')
+                                    st.success(f'I believe this is a {zip_original_label}. ({risk_level})')
                                 else:
                                     st.warning(f"I think I am wrong, but my best guess is: {zip_original_label} ({risk_level}).")
 
