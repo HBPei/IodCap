@@ -1,26 +1,26 @@
-Aerosol Cans: High risk due to pressurized contents and potential flammability.
-Aluminum Soda Can: Medium risk due to potential residue from beverages.
+Aerosol Cans: High risk due to pressurized contents and potential flammability, suitable for recycling.
+Aluminum Soda Can: Medium risk due to potential residue from beverages, suitable for recycling.
 Cardboard Packaging: Low risk of contamination as it is generally clean and recyclable.
 Clothing: High risk if contaminated with hazardous substances (e.g., chemicals, dyes). If in good condition, reuse or donate!
-Disposable Plastic Cutlery: High risk due to potential contamination from food and inability to recycle effectively.
+Disposable Plastic Cutlery: High risk due to potential contamination from food and inability to recycle effectively, re-use, not suitable for recycling.
 Eggshell: Low risk; biodegradable and does not contain harmful substances.
-Food Waste: High risk due to decomposition and attraction of pests.
-Glass Beverage Bottle: Medium risk; may contain residues from drinks.
-Glass Cosmetic Container: Medium risk; potential for residual chemicals.
-Glass Food Jar: Medium risk; may have food residues.
-Magazine: Low risk; typically clean paper material.
-Metal Food Can: Medium risk; potential for food contamination.
-Newspaper: Low risk; also clean paper material.
+Food Waste: High risk due to decomposition and attraction of pests, wrong bin - not suitable for recycling.
+Glass Beverage Bottle: Medium risk; may contain residues from drinks, suitable for recycling.
+Glass Cosmetic Container: Medium risk; potential for residual chemicals, not suitable for recycling.
+Glass Food Jar: Medium risk; may have food residues, suitable for recycling.
+Magazine: Low risk; typically clean paper material, suitable for recycling.
+Metal Food Can: Medium risk; potential for food contamination, suitable for recycling.
+Newspaper: Low risk; also clean paper material, stuiable for recycling.
 Paper: Low risk; clean paper can be recycled easily.
-Paper Cup: Medium risk due to potential food contamination.
+Paper Cup: Medium risk due to potential food contamination, not suitable for recycling.
 Plastic Container: Medium risk; may contain residues from previous contents.
 Plastic Cup Lid: Medium risk; may contain residues or contaminants.
-Plastic Detergent Bottle: Medium risk due to chemical residues.
-Plastic Shopping Bag: High risk; often contaminated with food and difficult to recycle.
+Plastic Detergent Bottle: Medium risk due to chemical residues, suitable ffor recycling.
+Plastic Shopping Bag: High risk; often contaminated with food and difficult to recycle, reuse as much as possible before recycling.
 Plastic Soda Bottle: Medium risk as it may contain residual sugars or acids.
-Plastic Straw: High risk; often contaminated and contributes to environmental pollution.
+Plastic Straw: High risk; often contaminated and contributes to environmental pollution, not suitable for recycling.
 Plastic Trash Bag: High risk as it may contain mixed waste, including hazardous materials.
 Plastic Water Bottle: Medium risk as it may contain residual liquids or contaminants.
 Shoes: High risk, contaminated with hazardous substances or chemicals.  If in good condition, reuse or donate!
-Styrofoam Cup: High risk due to difficulty in recycling and potential contamination from food or drink.
-Styrofoam Food Container: High risk due to difficulty in recycling and potential contamination from food.
+Styrofoam Cup: High risk due to difficulty in recycling and potential contamination from food or drink, not suitable for recycling.
+Styrofoam Food Container: High risk due to difficulty in recycling and potential contamination from food, not suitable for recycling.
