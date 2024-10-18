@@ -114,7 +114,6 @@ def load_model_function(model_pkl_file):
 
 #Getting current directory regardless of where user places it
 cwd = os.getcwd()
-#pklFile = 'b3_1.pkl'
 pklFile = 'tfm1.pkl'
 pklFilePath = os.path.join(cwd,pklFile)
 
@@ -143,7 +142,6 @@ def preprocess_images(images):
         
         # Use the datagen to preprocess the image
         processed_image = dataGen.standardize(image_array)  # Standardize the image
-        #processed_images.append(processed_image)
         ##Uncomment to Check shape of processed_image and append it to the list
         #st.write(f"Processed image shape: {processed_image.shape}")  # Display shape in Streamlit
         processed_images.append(processed_image)
